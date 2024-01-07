@@ -14,6 +14,7 @@ version = "1.0.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+val coroutinesVersion = "1.7.3"
 
 val vertxVersion = "4.5.1"
 val junitJupiterVersion = "5.10.1"
@@ -32,10 +33,19 @@ dependencies {
     implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
     implementation("io.vertx:vertx-web-client")
     implementation("io.vertx:vertx-web")
+    implementation("io.vertx:vertx-auth-oauth2")
+    implementation("io.vertx:vertx-auth-jwt")
+    implementation("io.vertx:vertx-auth-webauthn")
+
+
     implementation("io.vertx:vertx-lang-kotlin")
     implementation("io.vertx:vertx-lang-kotlin-coroutines")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutinesVersion")
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
+
     testImplementation("io.vertx:vertx-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
