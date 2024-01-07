@@ -1,11 +1,11 @@
 package net.dilius.some_vertx
 
-import io.vertx.core.AbstractVerticle
-import io.vertx.core.Promise
+import io.vertx.kotlin.coroutines.CoroutineVerticle
+import io.vertx.kotlin.coroutines.coAwait
 
-class MainVerticle : AbstractVerticle() {
+class MainVerticle : CoroutineVerticle() {
 
-  override fun start(startPromise: Promise<Void>) {
+  override suspend fun start() {
     vertx
       .createHttpServer()
       .requestHandler { req ->
@@ -13,13 +13,6 @@ class MainVerticle : AbstractVerticle() {
           .putHeader("content-type", "text/plain")
           .end("Hello from Vert.x!")
       }
-      .listen(8888) { http ->
-        if (http.succeeded()) {
-          startPromise.complete()
-          println("HTTP server started on port 8888")
-        } else {
-          startPromise.fail(http.cause());
-        }
-      }
+      .listen(8888).coAwait()
   }
 }
